@@ -1,31 +1,23 @@
 class Solution {
     public int countStudents(int[] students, int[] sandwiches) {
     int len = students.length; 
-        Queue<Integer> studentQueue = new LinkedList<>();
-        Stack<Integer> sandwichStack = new Stack<>();
-        
-        // Add students and sandwiches to the queue and stack
-        for (int i = 0; i < len; i++) {
-            sandwichStack.push(sandwiches[len - i - 1]);
-            studentQueue.offer(students[i]);
+    Queue<Integer> queue = new LinkedList<>();
+    Stack<Integer> stack = new Stack<>();
+    for (int i = 0; i < len; i++) {
+        stack.push(sandwiches[len - i - 1]);
+        queue.offer(students[i]);
+    }
+    int last = 0;
+    while (queue.size() > 0 && last < queue.size()) {
+        if (stack.peek() == queue.peek()) {
+            stack.pop();
+            queue.poll();
+            last = 0;
+        } else{
+            queue.offer(queue.poll()); 
+            last++;
         }
-
-        // Simulate the lunch process by serving sandwiches 
-        // or sending students to the back of the queue.
-        int lastServed = 0;
-        while (studentQueue.size() > 0 && lastServed < studentQueue.size()) {
-            if (sandwichStack.peek() == studentQueue.peek()) {
-                sandwichStack.pop(); // Serve sandwich
-                studentQueue.poll(); // Student leaves queue
-                lastServed = 0;
-            } else {
-                // Student moves to back of queue
-                studentQueue.offer(studentQueue.poll()); 
-                lastServed++;
-            }
-        }
-
-        // Remaining students in queue are unserved students
-        return studentQueue.size();
+    }
+    return queue.size();
     }
 }
