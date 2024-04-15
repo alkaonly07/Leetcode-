@@ -1,21 +1,26 @@
 class MyStack {
     Queue<Integer> queue;
-    Queue<Integer> queue2;
+   // Queue<Integer> queue2;
     
 
     public MyStack() {
-        this.queue=new LinkedList<>();
-        this.queue2=new LinkedList<>();
+         this.queue=new LinkedList<>();
+        // this.queue2=new LinkedList<>();
     }
     
     public void push(int x) {
-        queue2.add(x);
-        while (!queue.isEmpty()) {
-            queue2.add(queue.remove());
+        // queue2.add(x);
+        // while (!queue.isEmpty()) {
+        //     queue2.add(queue.remove());
+        // }
+        // Queue<Integer> temp = queue;
+        // queue = queue2;
+        // queue2 = temp;
+        queue.add(x);
+        int n=queue.size();
+        for (int i = 0; i < n - 1; i++){
+            queue.add(queue.remove());
         }
-        Queue<Integer> temp = queue;
-        queue = queue2;
-        queue2 = temp;
         
     }
     
