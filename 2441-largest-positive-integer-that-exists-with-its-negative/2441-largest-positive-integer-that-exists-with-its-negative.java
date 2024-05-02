@@ -1,13 +1,19 @@
 class Solution {
     public int findMaxK(int[] nums) {
-        int ans=-1;
-        for(int i=0;i<nums.length;i++){
-            for(int j=i;j<nums.length;j++){
-                if(nums[i]==nums[j]*-1){
-                    ans=Math.max(ans,Math.abs(nums[i]));
-                }
+        Arrays.sort(nums);
+        int start=0;
+        int end=nums.length-1;
+        while(start<end){
+            if(-nums[start]==nums[end]){
+                return nums[end];
+            }
+            else if(-nums[start]>nums[end]){
+                ++start;
+            }
+            else{
+                --end;
             }
         }
-        return ans;
+        return -1;
     }
 }
