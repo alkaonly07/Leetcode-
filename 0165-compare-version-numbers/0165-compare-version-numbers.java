@@ -8,7 +8,7 @@ class Solution {
             int num2=i<str2.length?Integer.parseInt(str2[i]):0;
             if(num1>num2) return 1;
             else if(num1<num2) return -1;
-            System.gc();
+        
             
         }
         
