@@ -9,6 +9,7 @@ class Solution {
             if(num1>num2) return 1;
             else if(num1<num2) return -1;
         }
+        System.gc();
         return 0;
         
     }
