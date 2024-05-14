@@ -1,47 +1,41 @@
 class Solution {
     public int matrixScore(int[][] grid) {
-        int m = grid.length;
-        int n = grid[0].length;
-
-        // Set first column
-        for (int i = 0; i < m; i++) {
+        for (int i = 0; i < grid.length; i++) {
             if (grid[i][0] == 0) {
-                // Flip row
-                for (int j = 0; j < n; j++) {
-                    grid[i][j] = 1 - grid[i][j];
-                }
+                flipRow(grid, i);
             }
         }
-
-        // Optimize columns except first column
-        for (int j = 1; j < n; j++) {
-            int countZero = 0;
-            // Count zeros
-            for(int i = 0; i < m; i++) {
-                if(grid[i][j] == 0) {
-                    countZero++;
+        for (int i = 1; i < grid[0].length; i++) {
+            int count=0;
+            for(int j=0;j<grid.length;j++){
+                if(grid[j][i]==0){
+                    count++;
                 }
             }
-            // Flip the column if there are more zeros for better score
-            if(countZero > m-countZero) {
-                for(int i = 0; i < m; i++) {
-                    grid[i][j] = 1 - grid[i][j];
-                }
+            if(count>grid.length-count){
+                flipColumn(grid,i);
             }
-        }
-
-        // Calculate the final score considering bit positions
+            }
+        
         int score = 0;
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                // Left shift bit by place value of column to find column contribution
-                int columnScore = grid[i][j] << (n - j - 1);
-                // Add contribution to score
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                int columnScore = grid[i][j] << (grid[0].length - j - 1);
                 score += columnScore;
             }
         }
-
-        // return final result
         return score;
+    }
+        
+    
+    void flipRow(int[][] grid,int i){
+        for(int k=0;k<grid[0].length;k++){
+        grid[i][k]=1-grid[i][k];
+        }
+    }
+    void flipColumn(int[][] grid,int j){
+        for(int k=0;k<grid.length;k++){
+        grid[k][j]=1-grid[k][j];
+        }
     }
 }
