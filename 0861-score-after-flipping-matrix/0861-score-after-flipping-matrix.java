@@ -20,8 +20,7 @@ class Solution {
         int score = 0;
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length; j++) {
-                int columnScore = grid[i][j] << (grid[0].length - j - 1);
-                score += columnScore;
+                score += grid[i][j] << (grid[0].length - j - 1);
             }
         }
         return score;
