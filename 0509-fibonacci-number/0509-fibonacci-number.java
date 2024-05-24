@@ -1,4 +1,6 @@
+
 class Solution {
+    private HashMap<Integer, Integer> memo = new HashMap<>();
     public int fib(int n) {
         if(n<0){
             return -1;
@@ -9,6 +11,12 @@ class Solution {
         if(n==1){
             return 1;
         }
-        return fib(n-1)+fib(n-2);
+        if (memo.containsKey(n)) {
+            return memo.get(n);
+        }
+        // return fib(n-1)+fib(n-2);
+         int result = fib(n - 1) + fib(n - 2);
+        memo.put(n, result);
+        return result;
     }
 }
