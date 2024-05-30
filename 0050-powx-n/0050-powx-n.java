@@ -6,8 +6,8 @@ class Solution {
         if (n < 0) {
             x = 1 / x;
             if (n == Integer.MIN_VALUE) {
-                n = Integer.MAX_VALUE; // Make n positive
-                return x * helper(x, n); // Multiply by an extra x because we changed n to MAX_VALUE
+                n = Integer.MAX_VALUE;
+                return x * helper(x, n);
             } else {
                 n = -n;
             }
