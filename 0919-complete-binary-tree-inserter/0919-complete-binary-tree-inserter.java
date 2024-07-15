@@ -46,7 +46,7 @@ class CBTInserter {
             parent.left = node;
         } else {
             parent.right = node;
-            queue.poll(); // Move to the next node
+            queue.poll();
         }
         
         queue.add(node);
