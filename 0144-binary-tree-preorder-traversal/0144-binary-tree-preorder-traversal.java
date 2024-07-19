@@ -24,9 +24,17 @@ class Solution {
         if(node==null){
             return;
         }
-        result.add(node.val);
-        preOrderHelper(node.left, result);
-        preOrderHelper(node.right, result);
-        
+        Stack<TreeNode> stack=new Stack<>();
+        stack.push(node);
+        while(!stack.isEmpty()){
+            TreeNode node1=stack.pop();
+            result.add(node1.val);
+            if(node1.right!=null){
+                stack.push(node1.right);
+            }
+            if(node1.left!=null){
+                stack.push(node1.left);
+            }
+        }        
     }
 }
