@@ -24,8 +24,26 @@ class Solution {
         if(node==null){
             return;
         }
-        postOrderHelper(node.left, result);
-        postOrderHelper(node.right,result);
-        result.add(node.val);
+        // postOrderHelper(node.left, result);
+        // postOrderHelper(node.right,result);
+        // result.add(node.val);
+        Stack<TreeNode> stack1 = new Stack<>();
+        Stack<TreeNode> stack2 = new Stack<>();
+        stack1.push(node);
+        while(!stack1.isEmpty()){
+            TreeNode node1= stack1.pop();
+            stack2.push(node1);
+            if(node1.left!=null){
+                stack1.push(node1.left);
+            }
+            if(node1.right!=null){
+                stack1.push(node1.right);
+            }
+        }
+        while(!stack2.isEmpty()){
+            TreeNode node2=stack2.pop();
+            result.add(node2.val);
+        }
+        
     }
 }
