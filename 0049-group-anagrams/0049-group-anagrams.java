@@ -18,3 +18,8 @@ class Solution {
         return new ArrayList<>(map.values());
     }
 }
+
+//time : O(N * KlogK)
+//space : O(N * K)
+//N = number of Strings
+//k = avg length of each string
