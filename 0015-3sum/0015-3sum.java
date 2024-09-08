@@ -33,9 +33,8 @@ class Solution {
 }
 		
 }
-        return result;
-	
-
-        
+        return result;      
     }
 }
+
+//time : O(n^2)
