@@ -18,3 +18,5 @@ class Solution {
         return maxArea;
     }
 }
+
+//time : O(n)
