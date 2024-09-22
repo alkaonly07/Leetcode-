@@ -15,34 +15,19 @@
  */
 class Solution {
     public int sumNumbers(TreeNode root) {
-        if (root == null) {
+        return dfs(root, 0);
+    }
+    private int dfs(TreeNode node, int currentSum){
+        if(node == null){
             return 0;
         }
-
-        int result = 0;
-        Queue<Pair<TreeNode, Integer>> queue = new LinkedList<>();
-        queue.offer(new Pair<>(root, root.val));
-
-        while (!queue.isEmpty()) {
-            Pair<TreeNode, Integer> currentPair = queue.poll();
-            TreeNode currentNode = currentPair.getKey();
-            int currentSum = currentPair.getValue();
-
-            // If the current node is a leaf, add its value to the result
-            if (currentNode.left == null && currentNode.right == null) {
-                result += currentSum;
-            }
-
-            // Otherwise, continue the BFS by adding children to the queue
-            if (currentNode.left != null) {
-                queue.offer(new Pair<>(currentNode.left, currentSum * 10 + currentNode.left.val));
-            }
-            if (currentNode.right != null) {
-                queue.offer(new Pair<>(currentNode.right, currentSum * 10 + currentNode.right.val));
-            }
-        }
-
-        return result;
+        currentSum = currentSum * 10 + node.val;
         
+        if(node.left == null && node.right == null){
+            return currentSum;
+        }
+        int leftSum = dfs(node.left, currentSum);
+        int rightSum = dfs(node.right, currentSum);
+        return leftSum + rightSum ;
     }
 }
