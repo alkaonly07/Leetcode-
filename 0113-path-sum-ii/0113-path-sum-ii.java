@@ -15,33 +15,25 @@
  */
 class Solution {
     public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
-        
-   List<List<Integer>> result = new ArrayList<>();
-        if (root == null) {
-            return result;
-        }
-        dfs(root, targetSum, new ArrayList<>(), result);
+        List<List<Integer>> result = new ArrayList<>();
+        List<Integer> current = new ArrayList<>();
+        dfs(root, targetSum, result, current);
         return result;
+        
     }
-
-    private void dfs(TreeNode node, int targetSum, List<Integer> currentPath, List<List<Integer>> result) {
-        if (node == null) {
+    private void dfs(TreeNode node, int targetSum,List<List<Integer>> result,  List<Integer> current ){
+        if(node ==null){
             return;
         }
-
-        // Add the current node's value to the path
-        currentPath.add(node.val);
-
-        // Check if it's a leaf node and the sum equals targetSum
-        if (node.left == null && node.right == null && targetSum == node.val) {
-            result.add(new ArrayList<>(currentPath)); // Add a copy of the current path to the result
-        } else {
-            // Continue to explore the left and right subtrees
-            dfs(node.left, targetSum - node.val, currentPath, result);
-            dfs(node.right, targetSum - node.val, currentPath, result);
+        current.add(node.val);
+        targetSum -= node.val;
+        if(node.left ==null && node.right == null && targetSum ==0){
+            result.add(new ArrayList<>(current));
         }
-
-        // Backtrack to explore other paths by removing the last added node
-        currentPath.remove(currentPath.size() - 1);
+        else{
+            dfs(node.left, targetSum, result, current);
+            dfs(node.right, targetSum, result, current);
+        }
+        current.remove(current.size()-1);
     }
 }
