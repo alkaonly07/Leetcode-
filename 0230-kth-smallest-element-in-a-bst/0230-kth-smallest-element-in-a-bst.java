@@ -14,33 +14,22 @@
  * }
  */
 class Solution {
-    private int count = 0; // Counter to keep track of the number of nodes visited
-    private int result = 0; // To store the k-th smallest value
-
+    int count = 0;
+    int result = 0;
     public int kthSmallest(TreeNode root, int k) {
         dfs(root, k);
         return result;
     }
-
-    private void dfs(TreeNode node, int k) {
-        if (node == null) {
-            return; // Base case: return if the node is null
+    private void dfs(TreeNode node, int k){
+        if(node == null){
+            return;
         }
-
-        // Traverse the left subtree
-        dfs(node.left, k);
-
-        // Increment the counter
+        dfs(node.left,k);
         count++;
-        
-        // Check if the current node is the k-th smallest
-        if (count == k) {
-            result = node.val; // Store the k-th smallest value
-            return; // Return to stop further traversal
+        if(count == k){
+            result=node.val;
+            return;
         }
-
-        // Traverse the right subtree
-        dfs(node.right, k);
-        
+        dfs(node.right,k);
     }
 }
