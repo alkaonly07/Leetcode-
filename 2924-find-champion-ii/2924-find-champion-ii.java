@@ -4,30 +4,63 @@
 //     }
 // }
 
+
 public class Solution {
 
     public int findChampion(int n, int[][] edges) {
         // Initialize the indegree array to track the number of incoming edges for each team
         int[] indegree = new int[n];
+        List<List<Integer>> adjList = new ArrayList<>();
 
-        // Store the indegree of each team
+        // Create adjacency list
+        for (int i = 0; i < n; i++) {
+            adjList.add(new ArrayList<>());
+        }
+
+        // Store the indegree and build the graph
         for (int[] edge : edges) {
             indegree[edge[1]]++;
+            adjList.get(edge[0]).add(edge[1]);
         }
 
         int champ = -1;
         int champCount = 0;
 
-        // Iterate through all teams to find those with an indegree of 0
+        // Find candidate(s) with zero in-degree
         for (int i = 0; i < n; i++) {
-            // If the team can be a champion, store the team number and increment the count
             if (indegree[i] == 0) {
                 champCount++;
                 champ = i;
             }
         }
 
-        // If more than one team can be a champion, return -1, otherwise return the champion team number
-        return champCount > 1 ? -1 : champ;
+        // If more than one potential champion exists, return -1
+        if (champCount > 1) return -1;
+
+        // Verify the reachability of the identified candidate
+        return canReachAllNodes(champ, adjList, n) ? champ : -1;
+    }
+
+    private boolean canReachAllNodes(int start, List<List<Integer>> adjList, int n) {
+        boolean[] visited = new boolean[n];
+        Queue<Integer> queue = new LinkedList<>();
+        queue.offer(start);
+        visited[start] = true;
+
+        int visitedCount = 1;  // Start with the candidate node
+
+        while (!queue.isEmpty()) {
+            int current = queue.poll();
+            for (int neighbor : adjList.get(current)) {
+                if (!visited[neighbor]) {
+                    visited[neighbor] = true;
+                    queue.offer(neighbor);
+                    visitedCount++;
+                }
+            }
+        }
+
+        // If all nodes are visited, the candidate can reach all nodes
+        return visitedCount == n;
     }
 }
