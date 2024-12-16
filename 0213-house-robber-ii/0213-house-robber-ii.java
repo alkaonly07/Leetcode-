@@ -1,31 +1,33 @@
 class Solution {
     public int rob(int[] nums) {
         int n = nums.length;
-         if(n<2){
-            return nums[0];
-        }
-        int[] skipFirst =  new int[n-1];
-        int[] skipSecond = new int[n-1];
-        for(int i = 0;i<n-1;i++){
-            skipFirst[i] = nums[i];
-            skipSecond[i]  = nums[i+1];
-        }
-        int first = robHelper(skipFirst);
-        int second = robHelper(skipSecond);
-        return Math.max(first, second);
-        
-    }
-    private int robHelper(int[] nums){
-        int n = nums.length;
         if(n<2){
             return nums[0];
         }
-        int[] dp = new int[n];
-        dp[0] = nums[0];
-        dp[1] = Math.max(nums[0], nums[1]);
-        for(int i = 2;i<n;i++){
-            dp[i]  = Math.max(dp[i-1], dp[i-2]+nums[i]);
+        int[] leavingLast = new int[n-1];
+        int[] leavingFirst = new int[n-1];
+        
+        for(int i = 0;i< n-1;i++){
+            leavingLast[i] = nums[i];
+            leavingFirst[i] = nums[i+1];
         }
-        return dp[n-1];
+        
+        int maxAmountAfterLeavingFirst = robHelper(leavingFirst);
+        int maxAmountAfterLeavingLast = robHelper(leavingLast);
+        
+        return Math.max(maxAmountAfterLeavingFirst,maxAmountAfterLeavingLast );
+        
+    }
+    private int robHelper(int[] arr){
+        if(arr.length <2){
+            return arr[0];
+        }
+        int[] dp = new int[arr.length];
+        dp[0] = arr[0];
+        dp[1] = Math.max(arr[0], arr[1]);
+        for(int i = 2;i<arr.length;i++){
+            dp[i] = Math.max(arr[i] + dp[i-2], dp[i-1]);
+        }
+        return dp[arr.length-1];
     }
 }
